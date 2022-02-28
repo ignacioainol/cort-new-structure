@@ -2,7 +2,12 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const aws = require('aws-sdk');
-const res = require('express/lib/response');
+
+const ses = new aws.SES({
+    region: 'sa-east-1',
+    secretAccessKey: process.env.AWS_ACCESS_SECRET_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+});
 
 const getToken = (user) => {
     const { user_id, nickname, email, role_id } = user;
@@ -40,81 +45,39 @@ const getToken = (user) => {
 //     res.status(204).send("Message sent: %s", info.messageId);
 // }
 
-// const emailRegistered = async (infoNewUser) => {
-//     try {
-//         aws.config.update({
-//             secretAccessKey: process.env.AWS_ACCESS_SECRET_KEY,
-//             accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//             region: 'ap-south-1'
-//         });
-//         var ses = new aws.SES({ apiVersion: '2017-12-01' });
 
-//         const from = 'iggnaxios@gmail.com';
-//         ses.sendEmail({
-//             Source: from,
-//             Destination: { ToAddresses: [infoNewUser.email] }, //CcAddresses: to_cc,
-//             Message: {
-//                 Subject: {
-//                     Charset: "UTF-8",
-//                     Data: 'email_subject'
-//                 },
-//                 Body: {
-//                     Html: {
-//                         Charset: "UTF-8",
-//                         Data: 'email_message'
-//                     },
-//                     Text: {
-//                         Charset: "UTF-8",
-//                         Data: ''
-//                     }
-//                 }
-//             }
-//         }
-//             , function (err, data) {
-//                 if (err) {
-//                     console.log(err);
-//                 }
-//                 if (data) {
-//                     console.log(data);
-//                     return data;
-//                 }
-//             });
-//     } catch (err) {
-//         console.log(err);
-//     }
-// }
+const emailRegistered = (infoNewUser) => {
+    const { email, message } = infoNewUser;
 
-const emailRegistered = async (infoNewUser) => {
-    try {
-        const ses = new aws.SES({
-            region: 'ap-south-1',
-            secretAccessKey: process.env.AWS_ACCESS_SECRET_KEY,
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        });
+    sesTest(email, message).then((val) => {
+        console.log('go this back', val);
+        return "successful";
+    }).catch((err) => {
+        return err.message;
+    })
 
-        const params = {
-            Destination: {
-                ToAdresses: ['iggnaxios@gmail.com']
-            },
-            Message: {
-                Body: {
-                    Text: {
-                        Data: "From contact"
-                    }
-                },
-                Subject: {
-                    Data: "Subject Message"
+    return "successful";
+}
+
+function sesTest(emailTo, message) {
+    const params = {
+        Destination: {
+            ToAddresses: [emailTo]
+        },
+        Message: {
+            Body: {
+                Text: {
+                    Data: message
                 }
             },
-            Source: 'iggnaxios@gmail.com'
-        }
+            Subject: {
+                Data: "New User :D"
+            }
+        },
+        Source: "iggnaxios@gmail.com"
+    };
 
-        await ses.sendEmail(params);
-
-
-    } catch (err) {
-        res.send(err.message);
-    }
+    return ses.sendEmail(params).promise()
 }
 
 module.exports = {

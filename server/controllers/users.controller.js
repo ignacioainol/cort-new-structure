@@ -40,14 +40,6 @@ const changeAvatar = async (req, res) => {
 
         const file = req.files.file;
         const userId = req.body.userId
-        // const dir = await path.join(__dirname, `/../../../escort-frontend/public/uploads/${userId}`);
-
-        // if (!fs.existsSync(dir)) {
-        //     res.send("llego aca res send 46");
-        //     fs.mkdiAsync(dir);
-        //     return;
-        // }
-
 
         file.mv(path.join(__dirname, `../../frontend/build/uploads/${userId}/${file.name}`), err => {
             if (err) {
@@ -58,13 +50,6 @@ const changeAvatar = async (req, res) => {
 
 
         const userUpdatedAvatar = await updateAvatar(userId, file.name);
-        // console.log(userUpdatedAvatar)
-        // res.send(userUpdatedAvatar);
-        // return;
-
-        // res.status(201).json({
-        //     fileName: file.name, filePath: `/uploads/${file.name}`
-        // });
 
         if (userUpdatedAvatar) {
             const { user_id, nickname, role_id, first_login, avatar } = userUpdatedAvatar;
@@ -142,11 +127,17 @@ const updatePassword = async (req, res) => {
 
 }
 
+const testEmail = (req, res) => {
+    const data = emailRegistered({ email: req.body.emailTo, message: req.body.message })
+    res.send(data);
+}
+
 module.exports = {
     create,
     getAllUsers,
     getEscorts,
     signin,
     updatePassword,
-    changeAvatar
+    changeAvatar,
+    testEmail
 }
