@@ -1,0 +1,66 @@
+#component{
+    border: 1px solid black;
+}
+
+.active{
+    border-bottom: 1.4px solid white;
+}
+.avatar{
+    cursor: pointer;
+}
+.kissImg{
+    width: 2em ;
+    margin-left: 1em;
+}
+
+.infoEscort{
+    /* display: none; */
+    left: 8em;
+    position: absolute;
+    top: 15em;
+    width: 18rem;
+    z-index: 1;
+    background-color: #e91e63;
+    transition: all .5s linear;
+}
+
+.loading-component{
+    left: 50%;
+    top: 50%;
+    margin: 0;
+    position: absolute;
+    margin: 0 auto;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+.logout{
+    cursor: pointer;
+}
+.mLeft{
+    margin-left: -3em;
+}
+.img-wrap{
+    position: relative;
+    width: 35em;
+}
+.img-description{
+    cursor: pointer;
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    text-align: center;
+    background: rgba(29, 106, 154, 0.72);
+}
+.img-description p{
+    padding-top: 25%;
+}
+
+.img-wrap:hover .img-description{
+    visibility: visible;
+    opacity: 1;
+}
+.imgAvatar{
+    width: 14em;
+}
