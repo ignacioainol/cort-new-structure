@@ -6,20 +6,8 @@ const fileUpload = require('express-fileupload');
 //config
 app.set('port', 3000 || process.env.PORT);
 
-const whitelist = ["http://localhost:3000", "http://escort-web.herokuapp.com"];
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error("Not allowed by CORS"))
-        }
-    },
-    credentials: true,
-}
-
 //middlewares para funcionamiento necesario
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(fileUpload({
