@@ -17,7 +17,7 @@ const registerEscort = (escort) => async (dispatch) => {
     try {
         dispatch({ type: ESCORT_REGISTER_REQUEST, payload: escort });
 
-        const { data } = await axios.post(`${API_REST}users/escorts`, escort);
+        const { data } = await axios.post(`users/escorts`, escort);
         dispatch({ type: ESCORT_REGISTER_SUCCESS, payload: data });
     } catch (error) {
         dispatch({ type: ESCORT_REGISTER_FAIL, payload: error.message });

@@ -12,13 +12,12 @@ import {
     USER_SIGIN_REQUEST,
     USER_SIGIN_SUCCESS
 } from "../constants/userConstants";
-import { API_REST } from "../constants/base_uri";
 
 const signin = (loginData) => async (dispatch) => {
     const { email, password } = loginData;
     dispatch({ type: USER_SIGIN_REQUEST, payload: { email, password } });
     try {
-        const { data } = await axios.post(`${API_REST}users/signin`, { email, password });
+        const { data } = await axios.post(`users/signin`, { email, password });
         dispatch({ type: USER_SIGIN_SUCCESS, payload: data });
         Cookie.set('userInfo', JSON.stringify(data));
     } catch (error) {
@@ -38,7 +37,7 @@ const updatePassword = (changePasswordData) => async (dispatch) => {
     const { user_id, password, newPassword, confirmNewPassword } = changePasswordData;
     dispatch({ type: CHANGE_PASSWORD_REQUEST, payload: { user_id, password, newPassword, confirmNewPassword } });
     try {
-        const { data } = await axios.post(`${API_REST}users/changePassword`, { user_id, password, newPassword, confirmNewPassword });
+        const { data } = await axios.post(`users/changePassword`, { user_id, password, newPassword, confirmNewPassword });
         dispatch({ type: CHANGE_PASSWORD_SUCCESS, payload: data });
         Cookie.set('userInfo', JSON.stringify(data));
     } catch (error) {
@@ -62,7 +61,7 @@ const signout = () => async (dispatch) => {
 const changeUserAvatar = (file) => async (dispatch) => {
     try {
         dispatch({ type: USER_CHANGE_AVATAR_REQUEST, payload: file });
-        const { data } = await axios.post(`${API_REST}users/changeAvatar`, file, {
+        const { data } = await axios.post(`users/changeAvatar`, file, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
