@@ -18,7 +18,7 @@ export const Card = ({ user_id, nickname, avatar, age, attribute_description, at
         <>
             <div className="card mb-3" onMouseEnter={handleFocus} onMouseLeave={handleLeave}>
 
-                <div className="avatar" style={{ 'backgroundImage': `url(images/${avatar})` }}></div>
+                <div className="avatar" style={{ 'backgroundImage': `url(../public/images/${avatar})` }}></div>
                 {visible &&
                     <div className="card infoEscort">
                         <div className="card-body">
