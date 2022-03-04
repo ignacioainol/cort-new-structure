@@ -49,7 +49,7 @@ const changeAvatar = async (req, res) => {
         // }
 
 
-        file.mv(path.join(__dirname, `/../../../frontend/build/uploads/${userId}/${file.name}`), err => {
+        file.mv(path.join(__dirname, `../../frontend/build/uploads/${userId}/${file.name}`), err => {
             if (err) {
                 console.log(err);
                 return res.status(500).send(err);
