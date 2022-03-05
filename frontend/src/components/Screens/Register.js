@@ -21,10 +21,11 @@ export const Register = () => {
     const dispatch = useDispatch();
 
     const regionsList = useSelector(state => state.regionsList);
+    const { regions, loading: loadingRegions, error: errorRegions } = regionsList;
 
     useEffect(() => {
-        dispatch(listRegions);
-    }, []);
+        dispatch(listRegions());
+    }, [dispatch]);
 
     const handleChange = e => {
         setNewEscort({ ...newEscort, [e.target.name]: e.target.value });
@@ -105,9 +106,14 @@ export const Register = () => {
                                         <label htmlFor="region" className="form-label">Región</label>
                                         <select className="form-select" name="region" onChange={handleChange} aria-label="Default select example">
                                             <option defaultValue>Seleccione Región</option>
-                                            <option value="1">One</option>
+                                            {
+                                                regions.map(region => (
+                                                    <option value={region.region_id}>{region.region_name}</option>    
+                                                ))
+                                            }
+                                            {/* <option value="1">One</option>
                                             <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="3">Three</option> */}
                                         </select>
                                     </div>
 

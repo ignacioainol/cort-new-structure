@@ -30,7 +30,6 @@ export const MyProfile = () => {
             navigate('/login');
         } else {
             console.log(userInfo);
-            console.log(AVATAR_USER);
         }
     }, []);
 
