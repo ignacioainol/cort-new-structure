@@ -18,7 +18,7 @@ const create = async (req, res) => {
         emailRegistered({ nickname: req.body.nickname, email: req.body.email, password: req.body.password });
         res.status(201).send(newUser);
     } catch (error) {
-        console.log(error);
+        res.send(error.message);
     }
 }
 
