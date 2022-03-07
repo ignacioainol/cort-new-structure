@@ -55,12 +55,12 @@ const sendEmail = async (infoNewUser) => {
             Message: {
                 Subject: {
                     Charset: "UTF-8",
-                    Data: email_subject
+                    Data: 'email_subject'
                 },
                 Body: {
                     Html: {
                         Charset: "UTF-8",
-                        Data: email_message
+                        Data: 'email_message'
                     },
                     Text: {
                         Charset: "UTF-8",
