@@ -1,5 +1,5 @@
 const { createUser, getAllEscorts, getAll, loginUser, getUserById, changePassword, updateAvatar } = require('../models/User');
-const { getToken, sendEmail } = require('../utils');
+const { getToken, emailRegistered } = require('../utils');
 const generator = require('generate-password');
 // const fileUpload = require('express-fileupload');
 const path = require('path')
@@ -15,7 +15,7 @@ const create = async (req, res) => {
     try {
         req.body.password = password;
         const newUser = await createUser(req.body);
-        sendEmail({ nickname: req.body.nickname, email: req.body.email, password: req.body.password });
+        emailRegistered({ nickname: req.body.nickname, email: req.body.email, password: req.body.password });
         res.status(201).send(newUser);
     } catch (error) {
         res.send(error.message);
