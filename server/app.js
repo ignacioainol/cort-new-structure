@@ -20,6 +20,10 @@ app.use(fileUpload({
 // Llama al archivo en donde estan todas las rutas de la api
 app.use(require('./routes'));
 
+app.post('/email', (req, res) => {
+    res.send("ok route email");
+})
+
 
 // Echamos a correr la api en el puerto 3000 o el que esta definido en las variables de entorno (archivo .env)
 app.listen(process.env.PORT || 3000, () => {
