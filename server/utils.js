@@ -16,12 +16,12 @@ const getToken = (user) => {
 
 const emailRegistered = async (infoNewUser) => {
     let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
+        host: "email-smtp.sa-east-1.amazonaws.com",
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: 'noreply.dev66@gmail.com', // generated ethereal user
-            pass: 'testriqra', // generated ethereal password
+            user: "AKIATDM4AV7KNJ5QSAEZ", // generated ethereal user
+            pass: "BGBlZzLsthiYRtnp6Z4NceCGiAVHMut+2BHWz55A8faD", // generated ethereal password
         },
     });
 

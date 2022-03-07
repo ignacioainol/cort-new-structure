@@ -2,9 +2,15 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 const fileUpload = require('express-fileupload');
+const AWS = require(‘aws-sdk’);
 
 //config
 app.set('port', 3000 || process.env.PORT);
+
+//aws config to send email
+AWS.config.update({ region: ‘sa-east-1’ });
+let credentials = new AWS.SharedIniFileCredentials({profile: ‘work-account’}); 
+AWS.config.credentials = credentials;
 
 //middlewares para funcionamiento necesario
 app.use(cors());
