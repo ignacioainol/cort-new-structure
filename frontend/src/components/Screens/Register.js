@@ -28,7 +28,13 @@ export const Register = () => {
     }, [dispatch]);
 
     const handleChange = e => {
+        console.log("handle change ok");
         setNewEscort({ ...newEscort, [e.target.name]: e.target.value });
+    }
+
+    const handleSetTown = e => {
+        const idRegion = e.target.value;
+        dispatch(getTownsByIdRegion(idRegion));
     }
 
     const handleSubmit = e => {
@@ -103,7 +109,7 @@ export const Register = () => {
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-6 mb-3">
                                         <label htmlFor="region" className="form-label">Región</label>
-                                        <select className="form-select" name="region" onChange={handleChange} aria-label="Default select example">
+                                        <select className="form-select" name="region" onChange={handleSetTown} aria-label="Default select example">
                                             <option defaultValue>Seleccione Región</option>
                                             {
                                                 regions.map(region => (
