@@ -47,19 +47,33 @@ const getToken = (user) => {
 
 
 const emailRegistered = (infoNewUser) => {
-    const { email, message } = infoNewUser;
+    const { nickname, emailTo, password } = infoNewUser;
 
-    sesTest(email, message).then((val) => {
+    const message = `
+        Bienvenido ${nickname}, ingrese a su cuenta con el sigte password: ${password}.
+
+        http://52.67.66.83/login
+    `;
+
+    const htmlMessage = `
+        Bienvenido ${nickname}, ingrese a su cuenta con el sigte password: ${password}.
+        <br>
+        <a href="http://52.67.66.83/login" target="_blank">Ingresa acá!</a>
+    `;
+
+
+
+    sesTest(emailTo, message, htmlMessage).then((val) => {
         console.log('go this back', val);
         return "successful";
     }).catch((err) => {
         return err.message;
-    })
+    });
 
     return "successful";
 }
 
-function sesTest(emailTo, message) {
+function sesTest(emailTo, plainMessage, htmlMessage) {
     const params = {
         Destination: {
             ToAddresses: [emailTo]
@@ -67,7 +81,10 @@ function sesTest(emailTo, message) {
         Message: {
             Body: {
                 Text: {
-                    Data: message
+                    Data: plainMessage
+                },
+                Html: {
+                    Data: htmlMessage
                 }
             },
             Subject: {

@@ -14,9 +14,10 @@ const create = async (req, res) => {
 
     try {
         req.body.password = password;
-        const newUser = await createUser(req.body);
-        emailRegistered({ nickname: req.body.nickname, email: req.body.email, password: req.body.password });
-        res.status(201).send(newUser);
+        console.log(req.body);
+        await createUser(req.body);
+        const data = emailRegistered({ nickname: req.body.nickname, emailTo: req.body.email, password: req.body.password });
+        res.status(201).send(data);
     } catch (error) {
         res.send(error.message);
     }
@@ -128,7 +129,13 @@ const updatePassword = async (req, res) => {
 }
 
 const testEmail = (req, res) => {
-    const data = emailRegistered({ email: req.body.emailTo, message: req.body.message })
+    const password = generator.generate({
+        length: 10,
+        numbers: true
+    });
+
+    req.body.password = password;
+    const data = emailRegistered({ nickname: req.body.nickname, emailTo: req.body.emailTo, password: req.body.password })
     res.send(data);
 }
 

@@ -33,7 +33,6 @@ export const Register = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(error);
         dispatch(registerEscort(newEscort));
     }
 
@@ -108,12 +107,9 @@ export const Register = () => {
                                             <option defaultValue>Seleccione Región</option>
                                             {
                                                 regions.map(region => (
-                                                    <option value={region.region_id}>{region.region_name}</option>    
+                                                    <option key={region.region_id} value={region.region_id}>{region.region_name}</option>
                                                 ))
                                             }
-                                            {/* <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option> */}
                                         </select>
                                     </div>
 
